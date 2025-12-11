@@ -1,0 +1,31 @@
+# .github/workflows/ci.yml
+name: Integrasi CI/CD PHP Test API
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: ⬇Checkout Kode
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1' # Pilih versi PHP yang sesuai
+
+    - name: Konfigurasi Lingkungan
+      # Menggunakan GitHub Secret untuk mengamankan API Key
+      run: |
+        echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> $GITHUB_ENV
+
+    - name: Jalankan Tes PHP
+      # Menjalankan filetypetest.php
+      run: |
+        php filetypetest.php

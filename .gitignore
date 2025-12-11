@@ -1,0 +1,6 @@
+# File rahasia
+.env
+
+# Dependensi
+/vendor/
+/composer.lock
